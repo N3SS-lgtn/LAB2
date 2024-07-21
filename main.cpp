@@ -3,17 +3,18 @@
 // Initialize the serial interface
 Serial pc(USBTX, USBRX);
 
-// Function to print Fibonacci sequence using loops
-void fibonacci_loop(int n) {
-    int t1 = 0, t2 = 1, nextTerm;
+// Recursive function to calculate Fibonacci term
+int fibonacci_recursive(int n) {
+    if (n <= 1)
+        return n;
+    return fibonacci_recursive(n - 1) + fibonacci_recursive(n - 2);
+}
 
-    pc.printf("Fibonacci Sequence using loops: ");
-
-    for (int i = 1; i <= n; ++i) {
-        pc.printf("%d, ", t1);
-        nextTerm = t1 + t2;
-        t1 = t2;
-        t2 = nextTerm;
+// Function to print Fibonacci sequence using recursion
+void print_fibonacci_recursive(int n) {
+    pc.printf("Fibonacci Sequence using recursion: ");
+    for (int i = 0; i < n; ++i) {
+        pc.printf("%d, ", fibonacci_recursive(i));
     }
     pc.printf("\n");
 }
@@ -24,7 +25,7 @@ int main() {
     pc.printf("Enter the number of terms: ");
     pc.scanf("%d", &n);
 
-    fibonacci_loop(n);
+    print_fibonacci_recursive(n);
 
     while (true) {
         // Keep the program running
